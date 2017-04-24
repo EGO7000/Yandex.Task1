@@ -1,0 +1,232 @@
+// main: styles.less
+@import "variables.less";
+.lecture {
+  position: relative;
+  //margin-bottom: @fs;
+  //border: 1px solid #333;
+  background: @color-btn;
+  background: fade(@color-btn,70%);
+  //border-radius: @fs 0 @fs @fs;
+  padding: 0 @fs*2;
+  //width: 43%;
+}
+/*
+.lecture:nth-of-type(odd) { // чётные элементы
+  float: left;
+}
+.lecture:nth-of-type(even) { // чётные элементы
+  float: right;
+}
+*/
+.lecture-done {
+  background: #f6f5f3;
+}
+.lecture-delimiter {
+  margin: 0;
+  border: 0;
+  height: 5px;
+}
+.lecture-sch {
+  font-size: 0;
+  float: right;
+  display: table; // лекарство для старых движков
+  margin-right: -@fs*2;
+  & > div {
+    width: 50px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    &:before  {
+      color: @color-bg;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      font: bold @fs @font-small;
+      line-height: @fs*2;
+      display: block;
+      text-align: center;
+      letter-spacing: 1px; // чтобы шрифт под Windows в Хроме нормально отображался
+    }
+  }
+}
+
+.lecture-sch--RI:before { content: 'ШРИ'; background: @color-RI; }
+.lecture-sch--MR:before { content: 'ШМР'; background: @color-MR; }
+.lecture-sch--MD:before { content: 'ШМД'; background: @color-MD; }
+
+.lecture-title {
+  font-family: @font-header;
+  & span {
+  display: inline-block;
+  padding: 0 @fs;
+  line-height: @fs*2;
+  font-size: @fs;
+  background: @color-bg;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 0 0 @fs @fs;
+  letter-spacing: 1px; // чтобы шрифт под Windows в Хроме нормально отображался
+  }
+  & div {
+    clear: both;
+    font-size: 1.5em;
+    padding: @fs/2 0;
+      margin-left: 10px;
+    &:before {
+      content: '«';
+      margin-left: -10px;
+    }
+    &:after {
+      content: '»';
+    }
+  }
+}
+.lecture-speaker {
+  position: relative;
+  display: table;
+  padding: @fs/2 0;
+  width: 100%;
+  color: rgba(0,0,0,0.7);
+  &:before {
+    content: 'Спикеры:';
+    display: table-cell;
+    width: 1%;
+    font-family: @font-header;
+    padding-left: @fs;
+  }
+  &:before+div.lecture-speaker--name:empty {
+    border: 10px solid red;
+  }
+}
+.lecture-speaker--name {
+  padding: @fs/2 0 0;
+  margin: 0;
+  & b {
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 500;
+    padding: @fs/2 @fs 2pt @fs;
+    margin-top: -4pt;
+    &:empty {
+      display: none;
+    }
+  }
+  & b:hover+.lecture-speaker--tooltip, & b+.lecture-speaker--tooltip:hover {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    padding: 0;
+    margin-top: -23px;
+  }
+  &>span {
+    color: #8d8d8d;
+    font-weight: normal;
+  }
+  & .lecture-speaker--tooltip {
+    /*display: none;*/
+    visibility: hidden;
+    opacity: 0;
+    padding: 0;
+    width: 0;
+    display: inline-block;
+    margin-top: -20px;
+    .transition-less(opacity, .15s, ease);
+    transition-property: margin, opacity;
+    transition-duration: .15s;
+  }
+}
+.lecture-info {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: @fs;
+  font-weight: bold;
+  & div:empty {
+    display: none;
+  }
+  & div {
+    display: inline-block;
+    width: 49%;
+    vertical-align: middle;
+    text-align: center;
+    padding: @fs 0;
+  }
+  & a {
+    display: block;
+    margin: -@fs 0;
+    padding: @fs 0;
+  }
+}
+.lecture--legend {
+  width: 90%;
+  text-align: right;
+  padding: @fs*2 0 0;
+  & .lecture-sch {
+    float: none;
+    font-size: inherit;
+    display: inline-block;
+    width: 100%;
+    margin: 0 3px;
+    text-align: right;
+    & span {
+      display: inline-block;
+      line-height: 2em;
+      vertical-align: top;
+      &:after {
+        content: ' –';
+      }
+    }
+  }
+}
+.lecture-speaker--card {
+  @arrow: 12px;
+  display: table;
+  width: 70%;
+  padding: 10px;
+  border: 1px solid @color-btn;
+  background: @color-bg;
+  color: @color-text;
+  position: absolute;
+  margin: 0 auto;
+  /*top: 0;*/
+  left: 0;
+  right: 0;
+  bottom: 0;
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    left: 38px; bottom: -@arrow;
+    border: @arrow/2 solid transparent;
+    border-top: @arrow/2 solid @color-btn;
+  }
+  &:after {
+    border-top: @arrow/2 solid @color-bg;
+    bottom: (-@arrow)+1;
+  }
+  & img, & .lecture-speaker--wrapper {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+    padding: 0;
+  }
+  & div {
+    padding-left: @fs;
+  }
+  & img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50px;
+  }
+  & a {
+    display: inline-block;
+    padding: @fs 0 @fs/2;
+    font-size: 0.9em;
+  }
+  & .lecture-speaker--name {
+    font: bold 1em/1.5em @font-header;
+    text-transform: uppercase;
+  }
+}
+#lectureCard {
+  display: none;
+}

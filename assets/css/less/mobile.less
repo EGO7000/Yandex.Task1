@@ -1,0 +1,86 @@
+// main: styles.less
+@media (min-width: 1080px) {
+  .lecture-speaker--card { width: 80%; }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+}
+@media (max-width: 767px) {
+  body {
+    width: 90%;
+    margin: 0 5%;
+    padding: 5% 0;
+  }
+  .wrapper {
+    width: 100%;
+  }
+  .lecture--legend {
+    width: 99%;
+  }
+  .sked--month {
+    text-align: center;
+    padding-bottom: 0;
+    margin-bottom: -@fs*2;
+    & .sked-wrapper {
+      position: relative;
+      display: inline-block;
+      background: @color-bg;
+      width: auto;
+      padding: @fs;
+    }
+    & hr {
+      margin-top: -@fs*2;
+    }
+  }
+  .sked-wrapper {
+    width: 100%;
+    padding: 1em 0;
+  }
+    .sked {
+      transform: rotate(135deg);
+      &>span {
+        transform: rotate(-135deg);
+      }
+    }
+  .lecture-wrapper { width: 100%; }
+    .lecture {
+      /*border-radius: @fs/2;*/ // к чёрту скругления!)
+      padding: 0 @fs;
+    }
+    .lecture-title {
+      text-align: center;
+      & span {
+        padding: 1em 0 0;
+        background: initial;
+        width: 100%;
+      }
+      & div {
+        padding-top: 0;
+        margin: 0;
+        font-size: 1.3em;
+      }
+    }
+  .lecture-sch {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+  }
+  .lecture-speaker {
+    font-size: 0.9em;
+    text-align: center;
+    &:before {
+      content: '';
+      display: none;
+    }
+  }
+  .lecture-speaker--name { padding-top: @fs/2; display: block; }
+  .lecture-speaker--card { width: 90%; }
+  .lecture-speaker--card:before, .lecture-speaker--card:after { left: 33%; }
+}
+@media (max-width: 568px) {
+}
+@media (max-width: 480px) {
+}
+@media (max-width: 400px) {
+}
+@media (max-width: 320px) {
+}

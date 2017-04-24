@@ -1,0 +1,21 @@
+// main: styles.less
+@import "variables.less";
+.sked-wrapper, .lecture-wrapper {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.wrapper {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.sked-wrapper {
+  width: 10%;
+  min-width: 60px;
+  text-align: center;
+  font-weight: 500;
+}
+.lecture-wrapper {
+  width: 80%; // помним, что если у нас border > 0, то в сумме должно быть меньше 100%
+}
