@@ -1204,20 +1204,55 @@
 	addEvent(window, 'load', init); // инициализация после загрузки документа, на всякий случай, хоть код итак в самом низу документа
 	//var speaker = document.querySelectorAll('div.lecture-speaker--name:hover');
 
-
 	function filterSchedule(event) {
-		//console.log(event.target);
 		var el = event.target;
-		var filterType = '';
-		if (hasClass(el,'filter-sch')) {
-			var filterSchool = event.target.dataset.options,
-					lectures = document.querySelectorAll('#schedule div.lecture-sch');
+		var filterSchool = el.dataset.options;
+		var toggleClass = 'hideBlock';
+		//var filterType = '';
 
-			 for (i = 0; i < lectures.length; i++) {
-				if (lectures[i].querySelectorAll('.'+filterSchool).length > 0) {
-						lectures[i].parentNode.style.display = 'none';
+				// пройтись по всем childNodes [div.lecture] и проверить их .style.display = 'none';
+				function checkLectures(lectures) {
+						var l = lectures.querySelectorAll('div.lecture'),
+								flag = false;
+						// проверяем lecture-sch и скрываем lecture
+						for (var i = 0; i < l.length; i++) {
+							// если количество школ == количеству скрытых школ для лекции
+							if (l[i].querySelector('.lecture-sch').children.length == l[i].querySelectorAll('.'+toggleClass).length) {
+								l[i].classList.add(toggleClass);
+							} else {
+								flag = true;
+								l[i].classList.remove(toggleClass);
+							}
+						}
+						// проверяем lecture и скрываем lecture-wrapper
+						if (flag) {
+							l[0].parentNode.classList.remove(toggleClass);
+						} else {
+							l[0].parentNode.classList.add(toggleClass);
+						}
+						// возвращаем true, если sked-date надо скрыть
+						return !flag;
 				}
-			}
+
+		if (hasClass(el, 'filter-sch')) {
+				el.classList.toggle("filterOff");
+				//var displayed = (hasClass(el,'off')) ? 'hideBlock' : '';
+				var schools = document.querySelectorAll('#schedule div.'+filterSchool),
+						skedWrapper = document.querySelectorAll('#schedule > .sked-wrapper');
+				for (i = 0; i < schools.length; i++) {
+							schools[i].classList.toggle(toggleClass);
+				}
+				// теперь пройдёмся по всем .sked-wrapper в #schedule,
+				// чтобы скрыть lecture, lecture-wrapper и sked-wrapper
+				for (i = 0; i < skedWrapper.length; i++) {
+						var lectureWrapper = skedWrapper[i].nextElementSibling;
+						if ( checkLectures(lectureWrapper) ) { // если все лекции скрыты
+								skedWrapper[i].classList.add(toggleClass);
+						} else {
+								skedWrapper[i].classList.remove(toggleClass);
+						}
+				}
+
 		}
 		return false;
 	}
